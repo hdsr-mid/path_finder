@@ -1,9 +1,9 @@
-import re
+from ..finder.file_finder import FileFinder
+from ..tests.fxitures import temp_tree_structure1
+from ..tests.fxitures import temp_tree_structure2
 
 import pytest
-
-from ..finder.file_finder import FileFinder
-from ..tests.fxitures import temp_tree_structure1, temp_tree_structure2
+import re
 
 
 def test_file_finder_no_depth_limit(temp_tree_structure1):

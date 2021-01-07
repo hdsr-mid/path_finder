@@ -1,10 +1,11 @@
-import logging
-import re
+from ..finder.base import Finder
 from itertools import chain
 from pathlib import Path
 from typing import List
 
-from ..finder.base import Finder
+import logging
+import re
+
 
 logger = logging.getLogger(__name__)
 

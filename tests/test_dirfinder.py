@@ -1,5 +1,6 @@
 from ..finder.dir_finder import DirFinder
-from ..tests.fxitures import temp_tree_structure1, temp_tree_structure2
+from ..tests.fxitures import temp_tree_structure1
+from ..tests.fxitures import temp_tree_structure2
 
 
 def test_dirfinder_no_limit_depth(temp_tree_structure1):
