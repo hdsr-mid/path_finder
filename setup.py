@@ -1,5 +1,5 @@
-from distutils.core import setup
 from os import path
+from setuptools import setup
 
 
 # read the contents of your README file
@@ -20,13 +20,13 @@ tests_require = [
 
 setup(
     name="path_finder",
-    packages=["path_finder"],
-    package_dir={"path_finder": "."},
+    packages=["path_finder",],
+    package_dir={"path_finder": ".",},
     version=version,
     license="MIT",
     description="interface for finding directories and files",
-    long_description=long_description,
     long_description_content_type="text/markdown",
+    long_description=long_description,
     author="Renier Kramer",
     author_email="renier.kramer@hdsr.nl",
     url="https://github.com/hdsr-mid/path_finder",
