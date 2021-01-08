@@ -15,7 +15,7 @@ The two main features are: path_finder.DirFinder and path_finder.FileFinder (see
 
 ### Contributions
 All contributions, bug reports, bug fixes, documentation improvements, enhancements and ideas are welcome.
-Issues are posted on: https://github.com/hdsr-mid/path_finder/issues
+Issues are posted on: https://github.cFileom/hdsr-mid/path_finder/issues
 
 [pypi]: https://pypi.org/project/path-finder/
 [mit]: https://github.com/hdsr-mid/path_finder/blob/main/LICENSE.txt
