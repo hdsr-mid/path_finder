@@ -7,7 +7,7 @@ this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
-version = "1.1"
+version = "1.2"
 
 install_requires = [
     "pathlib",
@@ -20,8 +20,8 @@ tests_require = [
 
 setup(
     name="path_finder",
-    packages=["path_finder",],
-    package_dir={"path_finder": ".",},
+    packages=["path_finder"],
+    package_dir={"path_finder": "."},
     version=version,
     license="MIT",
     description="interface for finding directories and files",
