@@ -11,6 +11,7 @@ version = "1.1"
 
 install_requires = [
     "pathlib",
+    "typing",
 ]
 
 tests_require = [
