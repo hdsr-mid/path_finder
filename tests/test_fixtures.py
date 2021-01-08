@@ -1,4 +1,4 @@
-from ..tests.fxitures import temp_tree_structure1
+from tests.fixtures import temp_tree_structure1
 
 
 def test_temp_tree_structure(temp_tree_structure1):
