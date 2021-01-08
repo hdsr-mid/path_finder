@@ -29,7 +29,7 @@ setup(
     author="Renier Kramer",
     author_email="renier.kramer@hdsr.nl",
     url="https://github.com/hdsr-mid/path_finder",
-    download_url="https://github.com/hdsr-mid/path_finder/archive/v1.0.tar.gz",
+    download_url=f"https://github.com/hdsr-mid/path_finder/archive/v{version}.tar.gz",
     keywords=["interface", "path", "directory", "filename", "glob", "regex", "find"],
     install_requires=install_requires,
     tests_require=tests_require,
