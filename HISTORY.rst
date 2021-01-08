@@ -1,6 +1,6 @@
 1.1 (2021-01-08)
 ----------------
-- remove 'typing' as external dependency
+- investigate ModuleNotFoundError: No module named 'path_finder.finder'
 
 1.0 (2021-01-07)
 ----------------
