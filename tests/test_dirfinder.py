@@ -1,4 +1,4 @@
-from path_finder.dir_finder import DirFinder
+from finder.dir_finder import DirFinder
 from tests.fixtures import temp_tree_structure1
 from tests.fixtures import temp_tree_structure2
 
