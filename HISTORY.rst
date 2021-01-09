@@ -1,3 +1,8 @@
+1.3 (2021-01-09)
+----------------
+- use setuptools.finder_packages() in setup.py instead of defining hardcoded
+- remove 'package_dir={"finder": "."}' from setup.py
+
 1.2 (2021-01-08)
 ----------------
 - renamed finder to path_finder,

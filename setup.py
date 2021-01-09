@@ -1,4 +1,5 @@
 from os import path
+from setuptools import find_packages
 from setuptools import setup
 
 
@@ -7,7 +8,7 @@ this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
-version = "1.2"
+version = "1.3"
 
 install_requires = [
     "pathlib",
@@ -20,8 +21,7 @@ tests_require = [
 
 setup(
     name="path_finder",
-    packages=["path_finder"],
-    package_dir={"path_finder": "."},
+    packages=find_packages(include=["finder", "finder.*"]),
     version=version,
     license="MIT",
     description="interface for finding directories and files",
