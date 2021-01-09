@@ -31,7 +31,7 @@ Issues are posted on: https://github.cFileom/hdsr-mid/path_finder/issues
 #### Example FileFinder:
 ```
 from pathlib import Path
-import path_finder
+from path_finder import FileFinder
 
 start_dir1          = pathlib.Path('start_search_from_this_dir')
 start_dir2          = pathlib.Path('and_start_search_from_this_dir')
@@ -40,7 +40,7 @@ depth               = 2  # 2, so search in start_dir1, subdir and subsubdirs (sa
 filename_regex      = '^[0-9]{8}_blabla'
 extension           = '.csv'  # choose from ('.jpg', '.png', '.txt', '.xml', '.csv', '.xlsx', '.pdf', '.h5', '.nc', '.zip')   
 
-file_finder = path_finder.FileFinder(
+file_finder = FileFinder(
     multi_start_dir=[start_dir1, start_dir2],
     extension=extension,
     limit_depth=True,                   
@@ -56,9 +56,9 @@ paths_empty_files = file_finder.paths_empty_file  # returns a List[Path]
 #### Example DirFinder:
 ```
 from pathlib import Path
-import path_finder
+from path_finder import DirFinder
 
-dir_finder = path_finder.DirFinder(
+dir_finder = DirFinder(
     single_start_dir=pathlib.Path('start_search_from_this_dir')
     exclude_empty_dirs=True,
     limit_depth=True,
