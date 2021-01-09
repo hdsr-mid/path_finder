@@ -33,8 +33,8 @@ Issues are posted on: https://github.cFileom/hdsr-mid/path_finder/issues
 from pathlib import Path
 from path_finder import FileFinder
 
-start_dir1          = pathlib.Path('start_search_from_this_dir')
-start_dir2          = pathlib.Path('and_start_search_from_this_dir')
+start_dir1          = Path('start_search_from_this_dir')
+start_dir2          = Path('and_start_search_from_this_dir')
 limit_depth         = True
 depth               = 2  # 2, so search in start_dir1, subdir and subsubdirs (same for start_dir2) 
 filename_regex      = '^[0-9]{8}_blabla'
@@ -59,7 +59,7 @@ from pathlib import Path
 from path_finder import DirFinder
 
 dir_finder = DirFinder(
-    single_start_dir=pathlib.Path('start_search_from_this_dir')
+    single_start_dir=Path('start_search_from_this_dir')
     exclude_empty_dirs=True,
     limit_depth=True,
     depth=0,  # so only search in single_start_dir
