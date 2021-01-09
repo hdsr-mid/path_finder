@@ -1,3 +1,8 @@
+1.4 (2021-01-09)
+----------------
+- renamed package 'finder' to path_finder
+- added .idea to .gitignore
+
 1.3 (2021-01-09)
 ----------------
 - use setuptools.finder_packages() in setup.py instead of defining hardcoded

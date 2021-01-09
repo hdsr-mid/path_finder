@@ -1,5 +1,5 @@
-from finder.base import Finder
 from itertools import chain
+from path_finder.base import Finder
 from pathlib import Path
 from typing import List
 

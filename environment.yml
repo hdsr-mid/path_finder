@@ -1,4 +1,4 @@
-name: finder
+name: path_finder
 channels:
   - defaults
   - conda-forge
