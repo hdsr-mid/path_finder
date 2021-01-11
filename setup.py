@@ -24,7 +24,7 @@ setup(
     packages=find_packages(include=["path_finder", "path_finder.*"]),
     version=version,
     license="MIT",
-    description="interface for finding directories and files",
+    description="An interface for finding directories and files",
     long_description_content_type="text/markdown",
     long_description=long_description,
     author="Renier Kramer",

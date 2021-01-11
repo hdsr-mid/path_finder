@@ -60,7 +60,7 @@ paths = dir_finder.paths  # returns a List[Path]
 paths_empty_files = dir_finder.paths_empty_file  # returns a List[Path]
 ```
 
-### Test coverage
+### Test coverage release v1.4
 ```
 ----------- coverage: platform win32, python 3.7.9-final-0 -----------
 Name                         Stmts   Miss  Cover
@@ -79,57 +79,59 @@ TOTAL                          326     25    92%
 ```
 
 
+
+
 ### Conda tips
-#### Build conda environment (on Windows) from any directory using environment.yml 
+#### Build conda environment (on Windows) from any directory using environment.yml:
 ```
 > conda env create -f <path_to_repo>/environment.yml --name <conda_env_name> python=<python_version>
 > conda info --envs  # verify <conda_env_name> is in this list 
 ```
-#### To start the application from any directory:
+#### Start the application from any directory:
 ```
 > conda activate <conda_env_name>
 > (<conda_env_name>) python <path_to_repo>/main.py
 ```
 #### Build virtual environment (on Windows) using requirement.txt
 ```
+# First build vitual environment and activate it, then:
 pip install -r <path_to_repo>/requirements.txt
 ```
-#### Test application
+#### Test the application:
 ```
+# Use system-wide pytest:
+> cd <path_to_repo>
+> pytest
+
+# Use pytest in environment
 > conda activate <conda_env_name>
+> conda install pytest
 > cd <path_to_repo>
-> pytest 
-> pytest --cov
+> pytest
 ```
-#### To auto-format and check changes run:
+#### List all conda environments on your machine:
 ```
-> cd <path_to_repo>
-> isort  # isort must be installed system wide
-> black .  # black must be installed system wide
-> pytest  # pytest must be installed system wide
+> conda info --envs
 ```
-#### To list all conda environments on your machine
+#### Build empty conda env with specific python version:
 ```
-conda info --envs
-```
-#### To build empty conda env with specific python version:
-###### Without 'no--deps' conda will install a list of specified packages in the .condarc file.
-###### To get the location of this conda configuration file type 'conda info'
-```
+# Without 'no--deps' conda will install a list of specified packages in the .condarc file.
+# To get the location of this conda configuration file type 'conda info'
 > cd <does_not_matter> 
 > conda create --name <conda_env_name> python=<python_version> --no-deps
 ```
-#### To write dependencies to environment.yml:
-###### By default, the YAML includes platform-specific build constraints. If you transfer across platforms (e.g. win32 to 64) omit the build info with '--no-builds':
+#### Write dependencies to environment.yml:
 ```
+# By default, the YAML includes platform-specific build constraints. 
+# If you transfer across platforms (e.g. win32 to 64) omit the build info with '--no-builds':
 > conda env export -f <path_to_repo>/environment.yml --name  <conda_env_name> --no-builds 
 ```
-#### To write dependencies to requirements.txt
+#### Write dependencies to requirements.txt:
 ```
-# first activate conda env (with pip installed), or the virtual env
-pip list --format=freeze > <path_to_repo>/requirements.txt
+# First activate conda env (with pip installed), or the virtual env
+> pip list --format=freeze > <path_to_repo>/requirements.txt
 ```
-#### To delete a conda env (remove env folder by hand afterwards)
+#### Delete a conda env (remove env folder by hand afterwards):
 ```
 > conda env remove --name <conda_env_name>
 ```
