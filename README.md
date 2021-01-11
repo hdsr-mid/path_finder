@@ -20,7 +20,7 @@ Issues are posted on: https://github.cFileom/hdsr-mid/path_finder/issues
 [pypi]: https://pypi.org/project/path-finder/
 [mit]: https://github.com/hdsr-mid/path_finder/blob/main/LICENSE.txt
 
-#### Example FileFinder:
+### Example FileFinder
 ```
 from pathlib import Path
 from path_finder import FileFinder
@@ -44,7 +44,7 @@ paths = file_finder.paths  # returns a List[Path]
 paths_empty_files = file_finder.paths_empty_file  # returns a List[Path]
 ```
 
-#### Example DirFinder:
+### Example DirFinder
 ```
 from pathlib import Path
 from path_finder import DirFinder
@@ -60,7 +60,7 @@ paths = dir_finder.paths  # returns a List[Path]
 paths_empty_files = dir_finder.paths_empty_file  # returns a List[Path]
 ```
 
-### Test coverage release v1.4
+### Test coverage (release v1.4)
 ```
 ----------- coverage: platform win32, python 3.7.9-final-0 -----------
 Name                         Stmts   Miss  Cover
@@ -80,8 +80,7 @@ TOTAL                          326     25    92%
 
 
 
-
-### Conda tips
+### Conda general tips
 #### Build conda environment (on Windows) from any directory using environment.yml:
 ```
 > conda env create -f <path_to_repo>/environment.yml --name <conda_env_name> python=<python_version>
