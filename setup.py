@@ -32,6 +32,7 @@ setup(
     url="https://github.com/hdsr-mid/path_finder",
     download_url=f"https://github.com/hdsr-mid/path_finder/archive/v{version}.tar.gz",
     keywords=["interface", "path", "directory", "filename", "glob", "regex", "find"],
+    zip_safe=False,
     install_requires=install_requires,
     tests_require=tests_require,
     extras_require={"test": tests_require},
