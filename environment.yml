@@ -1,4 +1,4 @@
-name: path_finder
+name: py37_path_finder
 channels:
   - defaults
   - conda-forge
@@ -18,4 +18,4 @@ dependencies:
   - wheel=0.36.2
   - wincertstore=0.2
   - zlib=1.2.11
-prefix: C:\Anaconda3\envs\path_finder
+prefix: C:\Anaconda3\envs\py37_path_finder
