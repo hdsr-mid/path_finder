@@ -67,13 +67,8 @@ class FileFinder(Finder):
     def validate_filefinder_constructor(self) -> None:
         if not isinstance(self.extension, str):
             raise AssertionError("extension must either be None or a str")
-        if (
-            self.extension not in self.EXTENTION_CHOICES
-            and self.extension != self.ALL_EXTENSIONS
-        ):
-            raise AssertionError(
-                f"extension {self.extension} must either be None or a str in {self.EXTENTION_CHOICES}"
-            )
+        if self.extension not in self.EXTENTION_CHOICES and self.extension != self.ALL_EXTENSIONS:
+            raise AssertionError(f"extension {self.extension} must either be None or a str in {self.EXTENTION_CHOICES}")
 
         # filename_regex is optional!!
         if self.filename_regex and not isinstance(self.filename_regex, str):
@@ -91,14 +86,11 @@ class FileFinder(Finder):
                     only_files_generator = (
                         _path
                         for _path in single_dir.glob(glob_pattern + self.extension)
-                        if _path.is_file()
-                        and re.match(pattern=self.filename_regex, string=_path.stem)
+                        if _path.is_file() and re.match(pattern=self.filename_regex, string=_path.stem)
                     )
                 else:
                     only_files_generator = (
-                        _path
-                        for _path in single_dir.glob(glob_pattern + self.extension)
-                        if _path.is_file()
+                        _path for _path in single_dir.glob(glob_pattern + self.extension) if _path.is_file()
                     )
                 # merge generators into one
                 file_paths_generator = chain(file_paths_generator, only_files_generator)
@@ -111,26 +103,18 @@ class FileFinder(Finder):
                 file_paths_generator = (
                     _path
                     for _path in single_dir.rglob(f"*{self.extension}")
-                    if _path.is_file()
-                    and re.match(pattern=self.filename_regex, string=_path.stem)
+                    if _path.is_file() and re.match(pattern=self.filename_regex, string=_path.stem)
                 )
             else:
-                file_paths_generator = (
-                    _path
-                    for _path in single_dir.rglob(f"*{self.extension}")
-                    if _path.is_file()
-                )
+                file_paths_generator = (_path for _path in single_dir.rglob(f"*{self.extension}") if _path.is_file())
             logger.debug("convert generator to list, this may take a while")
             return [x for x in file_paths_generator]
 
     def _get_paths_from_multi_dir(self) -> List[Path]:
         nested_lists_with_paths = [
-            self._get_paths_from_single_dir(single_dir=_dir_path)
-            for _dir_path in self.multi_start_dir
+            self._get_paths_from_single_dir(single_dir=_dir_path) for _dir_path in self.multi_start_dir
         ]
-        paths_from_multi_dir = [
-            item for sublist in nested_lists_with_paths for item in sublist
-        ]
+        paths_from_multi_dir = [item for sublist in nested_lists_with_paths for item in sublist]
         return paths_from_multi_dir if paths_from_multi_dir else []
 
     @property
@@ -138,9 +122,7 @@ class FileFinder(Finder):
         if self._paths or self._paths == []:
             return self._paths
         if self.single_start_dir:
-            self._paths = self._get_paths_from_single_dir(
-                single_dir=self.single_start_dir
-            )
+            self._paths = self._get_paths_from_single_dir(single_dir=self.single_start_dir)
         elif self.multi_start_dir:
             self._paths = self._get_paths_from_multi_dir()
         return self._paths
@@ -150,7 +132,5 @@ class FileFinder(Finder):
         """ A selection of self.paths of files that are empty (filesize=0kb). """
         if self._paths_empty_file or self._paths_empty_file == []:
             return self._paths_empty_file
-        self._paths_empty_file = [
-            _path for _path in self.paths if _path.stat().st_size == 0
-        ]
+        self._paths_empty_file = [_path for _path in self.paths if _path.stat().st_size == 0]
         return self._paths_empty_file
