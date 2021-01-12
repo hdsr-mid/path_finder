@@ -12,11 +12,7 @@ logger = logging.getLogger(__name__)
 
 class DirFinder(Finder):
     def __init__(
-        self,
-        dirname_regex: str = None,
-        exclude_empty_dirs: bool = False,
-        *args,
-        **kwargs,
+        self, dirname_regex: str = None, exclude_empty_dirs: bool = False, *args, **kwargs,
     ):
         self.dirname_regex = dirname_regex
         self.exclude_empty_dirs = exclude_empty_dirs
@@ -31,9 +27,7 @@ class DirFinder(Finder):
             raise AssertionError("dirname_regex must be a str")
 
     def _is_dir_path_regex_match(self, _path: Path) -> bool:
-        return _path.is_dir() and re.match(
-            pattern=self.dirname_regex, string=_path.stem
-        )
+        return _path.is_dir() and re.match(pattern=self.dirname_regex, string=_path.stem)
 
     def _get_paths_from_single_dir(self, single_dir: Path) -> List[Path]:
         if self.limit_depth:
@@ -49,15 +43,10 @@ class DirFinder(Finder):
                     only_dirs_generator = (
                         _path
                         for _path in single_dir.glob(glob_pattern)
-                        if _path.is_dir()
-                        and re.match(pattern=self.dirname_regex, string=_path.stem)
+                        if _path.is_dir() and re.match(pattern=self.dirname_regex, string=_path.stem)
                     )
                 else:
-                    only_dirs_generator = (
-                        _path
-                        for _path in single_dir.glob(glob_pattern)
-                        if _path.is_dir()
-                    )
+                    only_dirs_generator = (_path for _path in single_dir.glob(glob_pattern) if _path.is_dir())
                 # merge generators into one
                 dir_paths_generator = chain(dir_paths_generator, only_dirs_generator)
             logger.debug("convert generator to list, this may take a while")
@@ -69,25 +58,19 @@ class DirFinder(Finder):
                 dir_paths_generator = (
                     _path
                     for _path in single_dir.rglob("*")
-                    if _path.is_dir()
-                    and re.match(pattern=self.dirname_regex, string=_path.stem)
+                    if _path.is_dir() and re.match(pattern=self.dirname_regex, string=_path.stem)
                 )
 
             else:
-                dir_paths_generator = (
-                    _path for _path in single_dir.rglob("*") if _path.is_dir()
-                )
+                dir_paths_generator = (_path for _path in single_dir.rglob("*") if _path.is_dir())
             logger.debug("convert generator to list, this may take a while")
             return [x for x in dir_paths_generator]
 
     def _get_paths_from_multi_dir(self) -> List[Path]:
         nested_lists_with_paths = [
-            self._get_paths_from_single_dir(single_dir=_dir_path)
-            for _dir_path in self.multi_start_dir
+            self._get_paths_from_single_dir(single_dir=_dir_path) for _dir_path in self.multi_start_dir
         ]
-        paths_from_multi_dir = [
-            item for sublist in nested_lists_with_paths for item in sublist
-        ]
+        paths_from_multi_dir = [item for sublist in nested_lists_with_paths for item in sublist]
         return list(set(paths_from_multi_dir)) if paths_from_multi_dir else []
 
     @property
@@ -97,9 +80,7 @@ class DirFinder(Finder):
 
         # single dir
         if self.single_start_dir:
-            self._paths = self._get_paths_from_single_dir(
-                single_dir=self.single_start_dir
-            )
+            self._paths = self._get_paths_from_single_dir(single_dir=self.single_start_dir)
             if self.exclude_empty_dirs:
                 self._paths = [_path for _path in self._paths if any(_path.iterdir())]
             return self._paths
@@ -116,12 +97,8 @@ class DirFinder(Finder):
         if self._paths_empty_dir or self._paths_empty_dir == []:
             return self._paths_empty_dir
         elif self.exclude_empty_dirs:
-            logger.info(
-                f"paths_empty_dir is [] as search was done with exclude_empty_dirs=True"
-            )
+            logger.info("paths_empty_dir is [] as search was done with exclude_empty_dirs=True")
             self._paths_empty_dir = []
             return self._paths_empty_dir
-        self._paths_empty_dir = [
-            _path for _path in self.paths if not any(_path.iterdir())
-        ]
+        self._paths_empty_dir = [_path for _path in self.paths if not any(_path.iterdir())]
         return self._paths_empty_dir

@@ -40,58 +40,38 @@ class Finder:
         self.depth = depth
         self.validate_finder_constructor()
 
-    def validate_finder_constructor(self):
+    def validate_finder_constructor(self):  # noqa C901, silence flake8, we know this method is too complex (11)
         # validate single_start_dir + multi_start_dir
-        if (self.single_start_dir and self.multi_start_dir) or (
-            not self.single_start_dir and not self.multi_start_dir
-        ):
-            raise AssertionError(f"use either single_start_dir or multi_start_dir")
+        if (self.single_start_dir and self.multi_start_dir) or (not self.single_start_dir and not self.multi_start_dir):
+            raise AssertionError("use either single_start_dir or multi_start_dir")
         if self.single_start_dir:
-            assert isinstance(
-                self.single_start_dir, Path
-            ), "single_start_dir must be a pathlib.Path"
-            assert (
-                self.single_start_dir.is_dir()
-            ), f"single_start_dir {self.single_start_dir} does not exist"
+            assert isinstance(self.single_start_dir, Path), "single_start_dir must be a pathlib.Path"
+            assert self.single_start_dir.is_dir(), f"single_start_dir {self.single_start_dir} does not exist"
         elif self.multi_start_dir:
-            assert isinstance(
-                self.multi_start_dir, list
-            ), "multi_start_dir must be a list (with pathlib.Path)"
-            none_path_objects = [
-                x for x in self.multi_start_dir if not isinstance(x, Path)
-            ]
+            assert isinstance(self.multi_start_dir, list), "multi_start_dir must be a list (with pathlib.Path)"
+            none_path_objects = [x for x in self.multi_start_dir if not isinstance(x, Path)]
             if none_path_objects:
                 msg = "not all elements in multi_start_dir are of type pathlib.Path"
-                if (
-                    len(none_path_objects) < 4
-                ):  # 4 is a bit random (just do not return too many paths..)
+                if len(none_path_objects) < 4:  # 4 is a bit random (just do not return too many paths..)
                     raise AssertionError(f"{msg} : {none_path_objects}")
                 raise AssertionError(msg)
             none_existing_dirs = [x for x in self.multi_start_dir if not x.is_dir()]
             if none_existing_dirs:
                 msg = "not all elements in multi_start_dir are existing directories"
-                if (
-                    len(none_existing_dirs) < 4
-                ):  # 4 is a bit random (just do not return too many paths..)
+                if len(none_existing_dirs) < 4:  # 4 is a bit random (just do not return too many paths..)
                     raise AssertionError(f"{msg}: {none_existing_dirs}")
                 raise AssertionError(msg)
 
         # validate depth + limit_depth
-        assert isinstance(self.limit_depth, bool), f"limit_depth must be a bool"
+        assert isinstance(self.limit_depth, bool), "limit_depth must be a bool"
         if self.depth and not self.limit_depth:
-            raise AssertionError(
-                f"depth={self.depth} is only possible with limit_depth=True"
-            )
+            raise AssertionError(f"depth={self.depth} is only possible with limit_depth=True")
         if not self.limit_depth:
             return
         max_allowed_depth = max(self.DEPTH_MAPPER.keys())
         if not isinstance(self.depth, int) or not 0 <= self.depth <= max_allowed_depth:
-            raise AssertionError(
-                f"depth {self.depth} must be a int and in range: 0 <= depth <= {max_allowed_depth}"
-            )
-        logger.debug(
-            f"search recursively with limit_depth=True with depth={self.depth}"
-        )
+            raise AssertionError(f"depth {self.depth} must be a int and in range: 0 <= depth <= {max_allowed_depth}")
+        logger.debug(f"search recursively with limit_depth=True with depth={self.depth}")
 
     def _depth_to_startdir(self, path: Path, start_dir: Path) -> int:
         """Calculate the nr of parts (between slashes) in a relative path to start_dir.
@@ -103,6 +83,4 @@ class Finder:
             parts = path.relative_to(start_dir).parts
             return len(parts) - 1
         except TypeError as err:
-            raise AssertionError(
-                f"path {path} could not related to start_dir {start_dir}, err={err}"
-            )
+            raise AssertionError(f"path {path} could not related to start_dir {start_dir}, err={err}")

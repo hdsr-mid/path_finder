@@ -132,8 +132,9 @@ dmypy.json
 # ----------------------------
 # Idea stuff below
 # ----------------------------
-.idea/
+.DS_Store
 *.idea
+.idea/
 
 # File-based project format
 *.iws
