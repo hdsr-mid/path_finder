@@ -22,6 +22,8 @@ Issues are posted on: https://github.cFileom/hdsr-mid/path_finder/issues
 
 ### Example FileFinder
 ```
+# pip install path-finder
+# pip install pathlib
 from pathlib import Path
 from path_finder import FileFinder
 
@@ -46,6 +48,8 @@ paths_empty_files = file_finder.paths_empty_file  # returns a List[Path]
 
 ### Example DirFinder
 ```
+# pip install path-finder
+# pip install pathlib
 from pathlib import Path
 from path_finder import DirFinder
 
