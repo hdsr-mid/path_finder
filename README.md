@@ -83,7 +83,6 @@ TOTAL                          326     25    92%
 ```
 
 
-
 ### Conda general tips
 #### Build conda environment (on Windows) from any directory using environment.yml:
 ```
@@ -118,10 +117,15 @@ pip install -r <path_to_repo>/requirements.txt
 ```
 #### Build empty conda env with specific python version:
 ```
-# Without 'no--deps' conda will install a list of specified packages in the .condarc file.
+# With '--no-deps' conda will skip specified packages in the .condarc file.
 # To get the location of this conda configuration file type 'conda info'
-> cd <does_not_matter> 
+> cd <does_not_matter>
 > conda create --name <conda_env_name> python=<python_version> --no-deps
+```
+#### Delete a conda env:
+```
+> conda env remove --name <conda_env_name>
+# Then remove the env folder by hand afterwards
 ```
 #### Write dependencies to environment.yml:
 ```
@@ -129,12 +133,24 @@ pip install -r <path_to_repo>/requirements.txt
 # If you transfer across platforms (e.g. win32 to 64) omit the build info with '--no-builds':
 > conda env export -f <path_to_repo>/environment.yml --name  <conda_env_name> --no-builds 
 ```
-#### Write dependencies to requirements.txt:
+#### Pip and Conda:
 ```
-# First activate conda env (with pip installed), or the virtual env
+# If a packaga is not available on all conda channels, but available as pip package, one can do:
+> conda activate <conda_env_name>
+> conda install pip
+> pip install <pip_package>
+# Note that mixing packages from conda and pip is always a potential problem: conda calls pip, but 
+# pip does not know how to satisfy missing dependencies with packages from Anaconda repositories.
+
+# Your environment.yml might look like:
+channels:
+  - defaults
+dependencies:
+  - <a conda package>=<version>
+  - pip
+  - pip:
+    - <a pip package>==<version>
+
+# You can also write a requirements.txt file:
 > pip list --format=freeze > <path_to_repo>/requirements.txt
-```
-#### Delete a conda env (remove env folder by hand afterwards):
-```
-> conda env remove --name <conda_env_name>
 ```
