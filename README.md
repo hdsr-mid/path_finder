@@ -66,20 +66,16 @@ paths_empty_files = dir_finder.paths_empty_file  # returns a List[Path]
 
 ### Test coverage (release v1.4)
 ```
------------ coverage: platform win32, python 3.7.9-final-0 -----------
+---------- coverage: platform win32, python 3.7.10-final-0 -----------
 Name                         Stmts   Miss  Cover
 ------------------------------------------------
 path_finder\__init__.py          2      0   100%
 path_finder\base.py             47     13    72%
 path_finder\dir_finder.py       65     11    83%
 path_finder\file_finder.py      61      1    98%
-tests\__init__.py                0      0   100%
-tests\fixtures.py               41      0   100%
-tests\test_dirfinder.py         28      0   100%
-tests\test_filefinder.py        71      0   100%
-tests\test_fixtures.py          11      0   100%
+setup.py                        10     10     0%
 ------------------------------------------------
-TOTAL                          326     25    92%
+TOTAL                          185     35    81%
 ```
 
 
