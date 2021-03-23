@@ -40,7 +40,11 @@ class Finder:
         self.depth = depth
         self.validate_finder_constructor()
 
-    def validate_finder_constructor(self):  # noqa C901, silence flake8, we know this method is too complex (11)
+    def validate_finder_constructor(
+        self,
+    ):  # noqa C901,
+        # silence flake8 (C901), we know this method is too complex (11)
+
         # validate single_start_dir + multi_start_dir
         if (self.single_start_dir and self.multi_start_dir) or (not self.single_start_dir and not self.multi_start_dir):
             raise AssertionError("use either single_start_dir or multi_start_dir")

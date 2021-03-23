@@ -12,7 +12,11 @@ logger = logging.getLogger(__name__)
 
 class DirFinder(Finder):
     def __init__(
-        self, dirname_regex: str = None, exclude_empty_dirs: bool = False, *args, **kwargs,
+        self,
+        dirname_regex: str = None,
+        exclude_empty_dirs: bool = False,
+        *args,
+        **kwargs,
     ):
         self.dirname_regex = dirname_regex
         self.exclude_empty_dirs = exclude_empty_dirs
