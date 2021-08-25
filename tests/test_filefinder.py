@@ -30,7 +30,7 @@ def test_file_finder_empty_files(temp_tree_structure1):
 
 
 def test_file_finder_depth_0(temp_tree_structure1):
-    """ Limit the search to single_start_dir (no subdirectories). """
+    """Limit the search to single_start_dir (no subdirectories)."""
     file_finder = FileFinder(
         single_start_dir=temp_tree_structure1,
         extension=".txt",
@@ -50,7 +50,7 @@ def test_file_finder_depth_0(temp_tree_structure1):
 
 
 def test_file_finder_depth_1(temp_tree_structure1):
-    """ Limit the search to single_start_dir and its subdirs"""
+    """Limit the search to single_start_dir and its subdirs"""
     file_finder = FileFinder(
         single_start_dir=temp_tree_structure1,
         extension=".txt",

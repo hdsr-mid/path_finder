@@ -1,5 +1,5 @@
 from itertools import chain
-from path_finder.base import Finder
+from path_finder.base import FinderBase
 from pathlib import Path
 from typing import List
 
@@ -10,7 +10,7 @@ import re
 logger = logging.getLogger(__name__)
 
 
-class FileFinder(Finder):
+class FileFinder(FinderBase):
     """An interface for finding files. It combines best of both worlds glob/rglob (speed) and regex (flexibility):
     Mandatory arguments:
         'extension' (str)                       To filter files by extension.
@@ -129,7 +129,7 @@ class FileFinder(Finder):
 
     @property
     def paths_empty_file(self) -> List[Path]:
-        """ A selection of self.paths of files that are empty (filesize=0kb). """
+        """A selection of self.paths of files that are empty (filesize=0kb)."""
         if self._paths_empty_file or self._paths_empty_file == []:
             return self._paths_empty_file
         self._paths_empty_file = [_path for _path in self.paths if _path.stat().st_size == 0]

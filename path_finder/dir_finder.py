@@ -1,5 +1,5 @@
 from itertools import chain
-from path_finder.base import Finder
+from path_finder.base import FinderBase
 from pathlib import Path
 from typing import List
 
@@ -10,7 +10,7 @@ import re
 logger = logging.getLogger(__name__)
 
 
-class DirFinder(Finder):
+class DirFinder(FinderBase):
     def __init__(
         self,
         dirname_regex: str = None,
@@ -97,7 +97,7 @@ class DirFinder(Finder):
 
     @property
     def paths_empty_dir(self) -> List[Path]:
-        """ A selection of self.paths of dirs that hold no files. """
+        """A selection of self.paths of dirs that hold no files."""
         if self._paths_empty_dir or self._paths_empty_dir == []:
             return self._paths_empty_dir
         elif self.exclude_empty_dirs:
