@@ -1,26 +1,13 @@
-## path_finder
+### Context
+* Created: September 2020
+* Author: Renier Kramer, renier.kramer@hdsr.nl
+* Python version: >3.5
 
 ### Description
-An interface for finding directories and files by combining best of both worlds: glob/rglob (speed) and regex (flexibility).
+A python project that serves as an interface for finding directories and files by 
+combining best of both worlds: glob/rglob (speed) and regex (flexibility).
 
-### Features
-path_finder officially supports Python 3.5–3.8. \
-The two main features are: path_finder.DirFinder and path_finder.FileFinder (see Usage) 
-
-### License 
-[MIT][mit]
-
-### Releases
-[PyPi][pypi]
-
-### Contributions
-All contributions, bug reports, bug fixes, documentation improvements, enhancements and ideas are welcome.
-Issues are posted on: https://github.com/hdsr-mid/path_finder/issues
-
-[pypi]: https://pypi.org/project/path-finder/
-[mit]: https://github.com/hdsr-mid/path_finder/blob/main/LICENSE.txt
-
-### Example FileFinder
+### Usage path_finder.FileFinder
 ```
 # pip install path-finder
 # pip install pathlib
@@ -46,7 +33,7 @@ paths = file_finder.paths  # returns a List[Path]
 paths_empty_files = file_finder.paths_empty_file  # returns a List[Path]
 ```
 
-### Example DirFinder
+### Usage path_finder.DirFinder
 ```
 # pip install path-finder
 # pip install pathlib
@@ -64,6 +51,19 @@ paths = dir_finder.paths  # returns a List[Path]
 paths_empty_files = dir_finder.paths_empty_file  # returns a List[Path]
 ```
 
+### License 
+[MIT][mit]
+
+### Releases
+[PyPi][pypi]
+
+### Contributions
+All contributions, bug reports, bug fixes, documentation improvements, enhancements and ideas are welcome.
+Issues are posted on: https://github.com/hdsr-mid/path_finder/issues
+
+[pypi]: https://pypi.org/project/path-finder/
+[mit]: https://github.com/hdsr-mid/path_finder/blob/main/LICENSE.txt
+
 ### Test coverage (release v1.4)
 ```
 ---------- coverage: platform win32, python 3.7.10-final-0 -----------
@@ -78,67 +78,70 @@ setup.py                        10     10     0%
 TOTAL                          185     35    81%
 ```
 
-
 ### Conda general tips
 #### Build conda environment (on Windows) from any directory using environment.yml:
 ```
-> conda env create -f <path_to_repo>/environment.yml --name <conda_env_name> python=<python_version>
-> conda info --envs  # verify <conda_env_name> is in this list 
+> conda env create --name <conda_env_name> --file <path_to_project>/environment.yml python=<python_version>
+> conda info --envs  # verify that <conda_env_name> is in this list 
 ```
 #### Start the application from any directory:
 ```
 > conda activate <conda_env_name>
-> (<conda_env_name>) python <path_to_repo>/main.py
-```
-#### Build virtual environment (on Windows) using requirement.txt
-```
-# First build vitual environment and activate it, then:
-pip install -r <path_to_repo>/requirements.txt
+At any location:
+> (<conda_env_name>) python <path_to_project>/main.py
 ```
 #### Test the application:
 ```
-# Use system-wide pytest:
-> cd <path_to_repo>
-> pytest
-
-# Use pytest in environment
 > conda activate <conda_env_name>
-> conda install pytest
-> cd <path_to_repo>
-> pytest
+> cd <path_to_project>
+> pytest  # make sure pytest is installed (conda install pytest)
 ```
 #### List all conda environments on your machine:
 ```
+At any location:
 > conda info --envs
 ```
-#### Build empty conda env with specific python version:
+#### Delete a conda environment:
 ```
-# With '--no-deps' conda will skip specified packages in the .condarc file.
-# To get the location of this conda configuration file type 'conda info'
-> cd <does_not_matter>
-> conda create --name <conda_env_name> python=<python_version> --no-deps
-```
-#### Delete a conda env:
-```
+Get directory where environment is located 
+> conda info --envs
+Remove the enviroment
 > conda env remove --name <conda_env_name>
-# Then remove the env folder by hand afterwards
+Finally, remove the left-over directory by hand
 ```
 #### Write dependencies to environment.yml:
+The goal is to keep the .yml as short as possible (not include sub-dependencies), yet make the environment 
+reproducible. Why? If you do 'conda install matplotlib' you also install sub-dependencies like pyqt, qt 
+icu, and sip. You should not include these sub-dependencies in your .yml as:
+- including sub-dependencies result in an unnecessary strict environment (difficult to solve when conflicting)
+- sub-dependencies will be installed when dependencies are being installed
 ```
-# By default, the YAML includes platform-specific build constraints. 
-# If you transfer across platforms (e.g. win32 to 64) omit the build info with '--no-builds':
-> conda env export -f <path_to_repo>/environment.yml --name  <conda_env_name> --no-builds 
+> conda activate <conda_env_name>
+
+Recommended:
+> conda env export --from-history --no-builds | findstr -v "prefix" > --file <path_to_project>/environment_new.yml   
+
+Alternative:
+> conda env export --no-builds | findstr -v "prefix" > --file <path_to_project>/environment_new.yml 
+
+--from-history: 
+    Only include packages that you have explicitly asked for, as opposed to including every package in the 
+    environment. This flag works regardless how you created the environment (through CMD or Anaconda Navigator).
+--no-builds:
+    By default, the YAML includes platform-specific build constraints. If you transfer across platforms (e.g. 
+    win32 to 64) omit the build info with '--no-builds'.
 ```
 #### Pip and Conda:
+If a package is not available on all conda channels, but available as pip package, one can install pip as a dependency.
+Note that mixing packages from conda and pip is always a potential problem: conda calls pip, but pip does not know 
+how to satisfy missing dependencies with packages from Anaconda repositories. 
 ```
-# If a packaga is not available on all conda channels, but available as pip package, one can do:
 > conda activate <conda_env_name>
 > conda install pip
 > pip install <pip_package>
-# Note that mixing packages from conda and pip is always a potential problem: conda calls pip, but 
-# pip does not know how to satisfy missing dependencies with packages from Anaconda repositories.
-
-# Your environment.yml might look like:
+```
+The environment.yml might look like:
+```
 channels:
   - defaults
 dependencies:
@@ -146,7 +149,8 @@ dependencies:
   - pip
   - pip:
     - <a pip package>==<version>
-
-# You can also write a requirements.txt file:
-> pip list --format=freeze > <path_to_repo>/requirements.txt
+```
+You can also write a requirements.txt file:
+```
+> pip list --format=freeze > <path_to_project>/requirements.txt
 ```

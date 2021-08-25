@@ -7,7 +7,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class Finder:
+class FinderBase:
 
     DEPTH_MAPPER = {
         0: "*",  # search only start_dir
@@ -38,20 +38,21 @@ class Finder:
         self.multi_start_dir = multi_start_dir
         self.limit_depth = limit_depth
         self.depth = depth
-        self.validate_finder_constructor()
+        self.validate_constructor()
 
-    def validate_finder_constructor(
-        self,
-    ):  # noqa C901,
-        # silence flake8 (C901), we know this method is too complex (11)
+    def validate_constructor(self):
+        self.__validate_dirs()
+        self.__validate_depth_limit_depth()
 
+    def __validate_dirs(self) -> None:
         # validate single_start_dir + multi_start_dir
         if (self.single_start_dir and self.multi_start_dir) or (not self.single_start_dir and not self.multi_start_dir):
             raise AssertionError("use either single_start_dir or multi_start_dir")
         if self.single_start_dir:
             assert isinstance(self.single_start_dir, Path), "single_start_dir must be a pathlib.Path"
             assert self.single_start_dir.is_dir(), f"single_start_dir {self.single_start_dir} does not exist"
-        elif self.multi_start_dir:
+        else:
+            assert self.multi_start_dir
             assert isinstance(self.multi_start_dir, list), "multi_start_dir must be a list (with pathlib.Path)"
             none_path_objects = [x for x in self.multi_start_dir if not isinstance(x, Path)]
             if none_path_objects:
@@ -66,6 +67,7 @@ class Finder:
                     raise AssertionError(f"{msg}: {none_existing_dirs}")
                 raise AssertionError(msg)
 
+    def __validate_depth_limit_depth(self):
         # validate depth + limit_depth
         assert isinstance(self.limit_depth, bool), "limit_depth must be a bool"
         if self.depth and not self.limit_depth:
@@ -76,15 +78,3 @@ class Finder:
         if not isinstance(self.depth, int) or not 0 <= self.depth <= max_allowed_depth:
             raise AssertionError(f"depth {self.depth} must be a int and in range: 0 <= depth <= {max_allowed_depth}")
         logger.debug(f"search recursively with limit_depth=True with depth={self.depth}")
-
-    def _depth_to_startdir(self, path: Path, start_dir: Path) -> int:
-        """Calculate the nr of parts (between slashes) in a relative path to start_dir.
-        Returns 0 if path == start_dir,
-        Returns 1 if path is a subdir of start_dir,
-        etc..
-        """
-        try:
-            parts = path.relative_to(start_dir).parts
-            return len(parts) - 1
-        except TypeError as err:
-            raise AssertionError(f"path {path} could not related to start_dir {start_dir}, err={err}")
