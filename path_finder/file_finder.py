@@ -49,11 +49,21 @@ class FileFinder(FinderBase):
         ".txt",
         ".xml",
         ".csv",
+        ".xls",
         ".xlsx",
         ".pdf",
         ".h5",
         ".nc",
         ".zip",
+        ".env",
+        ".doc",
+        ".docx",
+        ".ods",
+        ".ppt",
+        ".pptx",
+        ".rst",
+        ".cfg",
+        ".py",
     )
 
     def __init__(self, extension: str, filename_regex: str = None, *args, **kwargs):
