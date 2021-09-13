@@ -1,3 +1,7 @@
+1.5 (2021-09-13)
+----------------
+- added 10 extension to EXTENTION_CHOICES
+
 1.4 (2021-01-09)
 ----------------
 - renamed package 'finder' to path_finder
