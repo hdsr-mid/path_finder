@@ -1,6 +1,8 @@
 [run]
 source = .
-omit = *tests*
+omit = *\__init__.py
+       *tests*
+       test/*
 
 [report]
 show_missing = false

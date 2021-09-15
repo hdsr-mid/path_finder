@@ -1,21 +1,13 @@
-name: py37_path_finder
 channels:
   - defaults
   - conda-forge
   - r
 dependencies:
-  - ca-certificates=2020.12.8
-  - certifi=2020.12.5
-  - openssl=1.1.1i
   - pathlib=1.0.1
-  - pip=20.3.3
+  - pip
+  - typing
   - python=3.7.9
-  - setuptools=51.0.0
-  - sqlite=3.33.0
-  - typing=3.7.4.3
-  - vc=14.2
-  - vs2015_runtime=14.27.29016
-  - wheel=0.36.2
-  - wincertstore=0.2
-  - zlib=1.2.11
-prefix: C:\Anaconda3\envs\py37_path_finder
+  - isort  # only required for auto-format code
+  - black  # only required for auto-format code
+  - pytest  # only required for running tests
+  - pytest-cov  # only required for running tests coverage
