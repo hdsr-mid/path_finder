@@ -66,15 +66,16 @@ Issues are posted on: https://github.com/hdsr-mid/path_finder/issues
 
 ### Test coverage (release v1.5)
 ```
------------ coverage: platform win32, python 3.7.9-final-0 --
+----------- coverage: platform win32, python 3.7.9-final-0 -------
 Name                         Stmts   Miss  Cover
 ------------------------------------------------
+path_finder\__init__.py          2      0   100%
 path_finder\base.py             45      8    82%
 path_finder\dir_finder.py       65     11    83%
 path_finder\file_finder.py      61      1    98%
 setup.py                        10     10     0%
 ------------------------------------------------
-TOTAL                          181     30    83%
+TOTAL                          183     30    84%
 ```
 
 ### Conda general tips
