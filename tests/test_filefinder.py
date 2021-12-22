@@ -68,12 +68,17 @@ def test_file_finder_multi_start_dir(temp_tree_structure1):
     ]
 
 
+def __default_err_msg(extension: str = None) -> str:
+    return f"extension '{extension}' must be in {FileFinder.EXTENTION_CHOICES}"
+
+
 def test_file_finder_wrong_setup(temp_tree_structure1):
 
     # limit_depth=True requires also depth argument
+    extension = ".txt"
     with pytest.raises(AssertionError) as err:
         FileFinder(
-            single_start_dir=temp_tree_structure1, extension=".txt", limit_depth=True, depth=None,
+            single_start_dir=temp_tree_structure1, extension=extension, limit_depth=True, depth=None,
         )
     assert err.value.args[0] == "depth None must be a int and in range: 0 <= depth <= 6"
 
@@ -81,13 +86,25 @@ def test_file_finder_wrong_setup(temp_tree_structure1):
     with pytest.raises(AssertionError) as err:
         extension = "txt"
         FileFinder(single_start_dir=temp_tree_structure1, extension=extension)
-    assert err.value.args[0] == f"extension {extension} must either be None or a str in {FileFinder.EXTENTION_CHOICES}"
+    assert err.value.args[0] == __default_err_msg(extension=extension)
 
     # unknown extension
     with pytest.raises(AssertionError) as err:
         extension = ".tar"
         FileFinder(single_start_dir=temp_tree_structure1, extension=extension)
-    assert err.value.args[0] == f"extension {extension} must either be None or a str in {FileFinder.EXTENTION_CHOICES}"
+    assert err.value.args[0] == __default_err_msg(extension=extension)
+
+    # extension is empty string
+    with pytest.raises(AssertionError) as err:
+        extension = ""
+        FileFinder(single_start_dir=temp_tree_structure1, extension=extension)
+    assert err.value.args[0] == __default_err_msg(extension=extension)
+
+    # extension is None
+    with pytest.raises(AssertionError) as err:
+        extension = None
+        FileFinder(single_start_dir=temp_tree_structure1, extension=extension)
+    assert err.value.args[0] == __default_err_msg(extension=extension)
 
     # single_start_dir must be a pathlib.Path
     with pytest.raises(AssertionError) as err:
@@ -139,3 +156,56 @@ def test_filefinder_caw_debietinstellingen(temp_tree_structure2):
     paths = file_finder.paths
     assert len(paths) == 1
     assert paths[0].name == "20200722_DebietFormuleInstellingen.csv"
+
+
+def test_filefinder_all_files_1(temp_tree_structure1):
+    file_finder = FileFinder(
+        single_start_dir=temp_tree_structure1, extension=".*", filename_regex=None, limit_depth=False, depth=None,
+    )
+    assert len(file_finder.paths) == 5
+
+    file_finder = FileFinder(
+        single_start_dir=temp_tree_structure1, extension=".*", filename_regex=None, limit_depth=True, depth=1,
+    )
+    assert len(file_finder.paths) == 4
+
+    file_finder = FileFinder(
+        single_start_dir=temp_tree_structure1, extension=".*", filename_regex=None, limit_depth=True, depth=0,
+    )
+    assert len(file_finder.paths) == 1
+
+    file_finder = FileFinder(
+        single_start_dir=temp_tree_structure1,
+        extension=".*",
+        filename_regex="^[0-9]{8}_DebietFormuleInstellingen$",
+        limit_depth=False,
+        depth=None,
+    )
+    assert len(file_finder.paths) == 0
+
+
+def test_filefinder_all_files_2(temp_tree_structure2):
+
+    file_finder = FileFinder(
+        single_start_dir=temp_tree_structure2, extension=".*", filename_regex=None, limit_depth=False, depth=None,
+    )
+    assert len(file_finder.paths) == 5
+
+    file_finder = FileFinder(
+        single_start_dir=temp_tree_structure2, extension=".*", filename_regex=None, limit_depth=True, depth=1,
+    )
+    assert len(file_finder.paths) == 4
+
+    file_finder = FileFinder(
+        single_start_dir=temp_tree_structure2, extension=".*", filename_regex=None, limit_depth=True, depth=0,
+    )
+    assert len(file_finder.paths) == 1
+
+    file_finder = FileFinder(
+        single_start_dir=temp_tree_structure2,
+        extension=".*",
+        filename_regex="^[0-9]{8}_DebietFormuleInstellingen$",
+        limit_depth=False,
+        depth=None,
+    )
+    assert len(file_finder.paths) == 1

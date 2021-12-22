@@ -42,7 +42,6 @@ class FileFinder(FinderBase):
 
     """
 
-    ALL_EXTENSIONS = "*"
     EXTENTION_CHOICES = (
         ".jpg",
         ".png",
@@ -64,10 +63,11 @@ class FileFinder(FinderBase):
         ".rst",
         ".cfg",
         ".py",
+        ".*",
     )
 
-    def __init__(self, extension: str, filename_regex: str = None, *args, **kwargs):
-        self.extension = extension if extension else ""
+    def __init__(self, extension: str = None, filename_regex: str = None, *args, **kwargs):
+        self.extension = extension
         self.filename_regex = filename_regex
         self.validate_filefinder_constructor()
         self._paths = None
@@ -75,10 +75,8 @@ class FileFinder(FinderBase):
         super().__init__(*args, **kwargs)
 
     def validate_filefinder_constructor(self) -> None:
-        if not isinstance(self.extension, str):
-            raise AssertionError("extension must either be None or a str")
-        if self.extension not in self.EXTENTION_CHOICES and self.extension != self.ALL_EXTENSIONS:
-            raise AssertionError(f"extension {self.extension} must either be None or a str in {self.EXTENTION_CHOICES}")
+        if not isinstance(self.extension, str) or self.extension not in self.EXTENTION_CHOICES:
+            raise AssertionError(f"extension '{self.extension}' must be in {self.EXTENTION_CHOICES}")
 
         # filename_regex is optional!!
         if self.filename_regex and not isinstance(self.filename_regex, str):

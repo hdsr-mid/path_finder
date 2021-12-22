@@ -1,3 +1,7 @@
+1.6 (2021-12-22)
+----------------
+- bugfix: search all file extensions (extension='.*')
+
 1.5 (2021-09-13)
 ----------------
 - added 10 extension to EXTENTION_CHOICES
