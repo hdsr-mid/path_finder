@@ -35,7 +35,7 @@ paths_empty_files = file_finder.paths_empty_file  # returns a List[Path]
 
 ### Usage path_finder.DirFinder
 ```
-# pip install path-finder
+# pip install path-finder (or conda install --channel hdsr-mid path-finder)
 # pip install pathlib
 from pathlib import Path
 from path_finder import DirFinder
