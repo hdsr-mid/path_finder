@@ -81,7 +81,7 @@ TOTAL                          180     29    84%
 
 ### Conda general tips
 #### Build conda environment (on Windows) from any directory using environment.yml:
-Note1: prefix is not set in the enviroment.yml as then conda does not handle it very well
+Note1: prefix is not set in the enviroment.yml as then conda does not handle it very well 
 Note2: env_directory can be anywhere, it does not have to be in your code project
 ```
 > conda env create --prefix <env_directory><env_name> --file <path_to_project>/environment.yml
