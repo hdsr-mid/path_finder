@@ -8,7 +8,6 @@ logger = logging.getLogger(__name__)
 
 
 class FinderBase:
-
     DEPTH_MAPPER = {
         0: "*",  # search only start_dir
         1: "*/*",  # search start_dir + its subdirs

@@ -42,7 +42,7 @@ class FileFinder(FinderBase):
 
     """
 
-    EXTENTION_CHOICES = (
+    EXTENSION_CHOICES = (
         ".jpg",
         ".png",
         ".txt",
@@ -75,15 +75,14 @@ class FileFinder(FinderBase):
         super().__init__(*args, **kwargs)
 
     def validate_filefinder_constructor(self) -> None:
-        if not isinstance(self.extension, str) or self.extension not in self.EXTENTION_CHOICES:
-            raise AssertionError(f"extension '{self.extension}' must be in {self.EXTENTION_CHOICES}")
+        if not isinstance(self.extension, str) or self.extension not in self.EXTENSION_CHOICES:
+            raise AssertionError(f"extension '{self.extension}' must be in {self.EXTENSION_CHOICES}")
 
         # filename_regex is optional!!
         if self.filename_regex and not isinstance(self.filename_regex, str):
             raise AssertionError("filename_regex must be a str")
 
     def _get_paths_from_single_dir(self, single_dir: Path) -> List[Path]:
-
         if self.limit_depth:
             file_paths_generator = chain()
             for _depth_n, glob_pattern in self.DEPTH_MAPPER.items():

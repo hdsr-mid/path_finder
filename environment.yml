@@ -1,8 +1,6 @@
 channels:
   - conda-forge
 dependencies:
+  - python>=3.7,<=3.11
   - pathlib
   - typing
-  - python=3.7
-  - pytest  # only required for running tests
-  - pytest-cov  # only required for running tests coverage

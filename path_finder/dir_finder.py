@@ -12,7 +12,11 @@ logger = logging.getLogger(__name__)
 
 class DirFinder(FinderBase):
     def __init__(
-        self, dirname_regex: str = None, exclude_empty_dirs: bool = False, *args, **kwargs,
+        self,
+        dirname_regex: str = None,
+        exclude_empty_dirs: bool = False,
+        *args,
+        **kwargs,
     ):
         self.dirname_regex = dirname_regex
         self.exclude_empty_dirs = exclude_empty_dirs
@@ -22,7 +26,7 @@ class DirFinder(FinderBase):
         super().__init__(*args, **kwargs)
 
     def validate_dirfinder_constructor(self):
-        # filename_regex is optional!!
+        # dirname_regex is optional!!
         if self.dirname_regex and not isinstance(self.dirname_regex, str):
             raise AssertionError("dirname_regex must be a str")
 
