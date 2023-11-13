@@ -1,10 +1,14 @@
+1.7 (2023-11-13)
+----------------
+- use 3.7 >= python <= 3.11
+
 1.6 (2021-12-22)
 ----------------
 - bugfix: search all file extensions (extension='.*')
 
 1.5 (2021-09-13)
 ----------------
-- added 10 extension to EXTENTION_CHOICES
+- added 10 extension to EXTENSION_CHOICES
 
 1.4 (2021-01-09)
 ----------------
