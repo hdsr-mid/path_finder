@@ -1,11 +1,11 @@
 ### Context
 * Created: September 2020
 * Author: Renier Kramer, renier.kramer@hdsr.nl
-* Python version: >3.5
+* Python version: 3.7 <= x <= 3.11
 
 ### Description
-A python project that serves as an interface for finding directories and files by 
-combining best of both worlds: glob/rglob (speed) and regex (flexibility).
+A python project that serves as an interface for finding directories and files by combining best of both 
+worlds: glob/rglob (speed) and regex (flexibility).
 
 ### Usage path_finder.FileFinder
 ```
@@ -17,9 +17,12 @@ from path_finder import FileFinder
 start_dir1          = Path('start_search_from_this_dir')
 start_dir2          = Path('and_start_search_from_this_dir')
 limit_depth         = True
-depth               = 2  # 2, so search in start_dir1, subdir and subsubdirs (same for start_dir2) 
+depth               = 2   
 filename_regex      = '^[0-9]{8}_blabla'
-extension           = '.csv'  # choose from ('.jpg', '.png', '.txt', '.xml', '.csv', '.xlsx', '.pdf', '.h5', '.nc', '.zip')   
+extension           = '.csv'     
+
+# depth: A depth of 2 means search in start_dir1, subdir and subsubdirs. Do the same for start_dir2
+# extension: Choose from ('.jpg', '.png', '.txt', '.xml', '.csv', '.xlsx', '.pdf', '.h5', '.nc', '.zip')
 
 file_finder = FileFinder(
     multi_start_dir=[start_dir1, start_dir2],
